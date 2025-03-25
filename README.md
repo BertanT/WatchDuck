@@ -1,3 +1,5 @@
+<img src="/Sources/Resources/DefaultHTMLAssets/wdlogo.svg" alt="[WatchDuck Logo consisting of a white duck holding an old spyglass to its eye." width=70 align="right">
+
 # Welcome to WatchDuck!
 WatchDuck is a lightweight, cross-platform web service monitor written entirely in Swift. 
 Host your very own auto-updating static status API and with a beautifully designed, customizable status page! 
