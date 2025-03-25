@@ -1,0 +1,395 @@
+/*
+ wdstyle.css
+ 
+ Copyright (C) 2024, 2025 Mehmet Bertan Tarakcioglu
+ 
+ This file is part of WatchDuck.
+ 
+ WatchDuck is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ 
+ WatchDuck is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+ 
+ You should have received a copy of the GNU Affero General Public License along with WatchDuck.
+ If not, see <https://www.gnu.org/licenses/>.
+*/
+
+/* --- Begin Color Variables --- */
+:root {
+    --primary-text-color: rgb(0, 0, 0); 
+    --primary-background-color: rgb(242, 242, 247);
+
+    --secondary-background-color: rgb(255, 255, 255);
+
+    --secondary-text-color: rgb(77, 77, 79);
+
+    --header-color-noblur: rgba(255, 255, 255, 0.97);
+    --header-color-blur: rgba(255, 255, 255, 0.5);
+
+    --shadow-color: rgba(28, 28, 30, 0.15);
+    --shadow-color-strong: rgba(0, 0, 0, 0.2); 
+
+    --button-background-color: rgb(229, 229, 234);
+    --button-background-color-hover: rgb(209, 209, 214);
+
+    --footer-background-color: rgb(229, 229, 234);
+
+    --seperator-color: rgb(229, 229, 232);
+
+    --up-badge-color: rgb(52, 199, 89);
+    --down-badge-color: rgb(255, 59, 48);
+    --badge-text-color: rgb(255, 255, 255);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-text-color: rgb(255, 255, 255);
+        --primary-background-color: rgb(0, 0, 0);
+
+        --secondary-background-color: rgb(28, 28, 30);
+
+        --secondary-text-color: rgb(164, 164, 168);
+
+        --header-color-noblur: rgba(54, 54, 56, 0.97);
+        --header-color-blur: rgba(108, 108, 112, 0.5);
+
+        --shadow-color: rgba(124, 124, 128, 0.15);
+        --shadow-color-strong: rgba(142, 142, 147, 0.15);
+
+        --button-background-color: rgb(44, 44, 46);
+        --button-background-color-hover: rgb(58, 58, 60);
+
+        --footer-background-color: rgb(28, 28, 30);
+
+        --seperator-color: rgb(44, 44, 46);
+    }
+}
+/* --- End Color Variables --- */
+
+
+/* --- Begin CSS Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.6;
+    font-family: -apple-system, 'Arial', sans-serif;
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+}
+
+/* --- End CSS Reset --- */
+
+
+.header-container {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin: 0.75rem auto;
+    height: 4rem;
+    z-index: 1000;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    border-radius: 1.5rem;
+    background-color: var(--header-color-noblur);
+    padding: 1rem;
+    box-shadow: 0 0 1rem var(--shadow-color-strong);
+}
+
+.header-container, .status-list {
+    width: calc(100% - 10vw);
+    max-width: 60rem;;
+}
+
+ @supports (backdrop-filter: none) or (-webkit-backdrop-filter: none) {
+    .header-container {
+        background-color: var(--header-color-blur);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
+}
+
+main {
+    padding-top: 5rem;
+}
+
+html, body {
+    height: 100%;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+.header-title h1 {
+    font-size: 1.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-shadow: 0 0 0.5rem var(--shadow-color);
+}
+
+.header-title img {
+    height: 3rem;
+    padding-right: 0.5em;
+    filter: drop-shadow(0 0 0.75rem var(--shadow-color));
+}
+
+.button {
+    color: inherit;
+    text-decoration: none;
+    background-color: var(--button-background-color);
+    transition: all 0.15s ease-out;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 0 0.2rem var(--shadow-color);
+}
+
+.button svg {
+    height: 1.2em;
+    padding-right: 0.45em;
+}
+
+
+.button:hover {
+    background-color: var(--button-background-color-hover);
+}
+
+.button-text {
+    white-space: nowrap;
+}
+
+.button:active {
+    box-shadow: none;
+}
+
+.status-list {
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+    background-color: var(--secondary-background-color);
+    border-radius: 1rem;
+}
+
+.status {
+    display: flex;
+    border-bottom: 0.1rem var(--seperator-color) solid;
+    padding: 0.8rem 0;
+    flex-wrap: wrap;
+
+    align-items: center;
+}
+
+.status:last-child {
+    border-bottom: none;
+}
+
+.status input[type="checkbox"] {
+    display: none;
+}
+
+.status .toggle-label {
+    user-select: none;
+    -webkit-user-select: none;
+    display: flex;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.status .toggle-label:hover {
+    cursor: pointer;
+}
+
+.status .toggle-label h2 {
+    font-size: 1.25rem;
+    font-weight: 550;
+    padding-left: 1rem;
+}
+
+.status .toggle-label svg {
+    height: 1rem;
+    transform-box: fill-box;
+    transition: all 0.2s ease-in-out;
+}
+
+.status .toggle:checked + .toggle-label svg {
+    transform: rotate(90deg);
+}
+
+.up-badge, .down-badge {
+    margin-left: auto;
+    color: var(--badge-text-color);
+    width: 4.5rem;
+    height: 1.55rem;
+    text-align: center;
+    align-content: center;
+    border-radius: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.up-badge {
+    background-color: var(--up-badge-color);
+}
+
+.down-badge {
+    background-color: var(--down-badge-color);
+}
+
+.status-details-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all 0.2s ease-in-out;
+}
+
+.status-details {
+    overflow: hidden;
+    grid-template-rows: 0fr;
+    padding-top: 0.1rem;
+    padding-left: 1.6rem;
+}
+
+.status-details > * {
+    font-size: 0.9rem;
+}
+
+.status-details h5 {
+    font-weight: 550;
+}
+
+.status-details h5 a {
+    font-weight: normal;
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.15s ease-out;
+}
+
+.status-details h5 a:hover {
+    text-decoration: underline;
+}
+
+.status-details ul {
+    padding-left: 1.5rem;
+}
+.status-list :has(.down-badge) ul :first-child {
+    color: var(--down-badge-color);
+    font-weight: bold;
+}
+
+.status .toggle:checked ~ .status-details-wrapper {
+    grid-template-rows: 1fr;
+    opacity: 100%;
+}
+
+.help-text {
+    color: var(--secondary-text-color);
+    font-size: 0.8rem;
+    font-weight: normal;
+    text-align: center;
+}
+
+body > footer {
+    position: sticky;
+    top: 100vh;
+}
+
+footer {     
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    padding: 1rem;
+    background-color: var(--footer-background-color);
+    color: var(--secondary-text-color);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+footer nav, p {
+    padding: 0 0.5rem;
+}
+
+footer a {
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.15s ease-out;
+}
+
+footer a:not(:last-child) {
+    padding-right: 0.5rem;
+    margin-right: 0.5rem;
+    border-right: 1px solid;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: var(--primary-text-color);
+}
+
+@media only screen and (max-width: 600px) {
+    footer {
+        justify-content: space-around;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .header-container {
+        height: 3rem;
+    }
+
+    .header-title {
+        width: 93%;
+    }
+
+    .header-title h1 {
+        font-size: 1.25rem;
+    }
+
+    .header-title img {
+        height: 2.4rem;
+        padding-right: 0.4em;
+    }
+
+    .header-nav .button {
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .header-nav .button svg {
+        padding-right: 0;
+        height: 1.5rem;
+        filter: drop-shadow(0 0 0.1rem var(--shadow-color-strong));
+    }
+
+    .header-nav .button:hover {
+        background-color: transparent;
+    }
+
+    .header-nav .button .button-text {
+        display: none;
+    }
+
+    main {
+        padding-top: 4rem;
+    }
+}

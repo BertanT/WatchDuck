@@ -1,0 +1,30 @@
+#################################################################################################################################
+# watchduck.service
+#
+# Copyright (C) 2025 Mehmet Bertan Tarakcioglu
+#
+# This file is part of WatchDuck.
+#
+# WatchDuck is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+# as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# WatchDuck is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License along with WatchDuck.
+# If not, see <https://www.gnu.org/licenses/>.
+#################################################################################################################################
+
+[Unit]
+Description = Systemd runner for WatchDuck: a lightweight web service monitor and static status page generator.
+Documentation=https://github.com/bertant/WatchDuck
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=exec
+ExecStart=/usr/local/bin/watchduck
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
