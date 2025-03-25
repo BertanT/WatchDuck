@@ -4,7 +4,7 @@ Host your very own auto-updating static status API and with a beautifully design
 Having designed with efficiency in mind, WatchDuck does not rely on a database and can be configured with a single YAML file.
 Unlike many other status monitors, it provides a comprehensive set of features while being optimized for resource-constrained systems!
 
-WatchDuck is still in an Alpha version, under active development. I welcome any feedback and contributions! Please see the [Contributing](#contributing) section for a set of basic guidelines.
+WatchDuck is still in an Alpha version, under active development. I welcome any feedback and contributions! Please see the [Contributing](#-contributing) section for a set of basic guidelines.
 
 ## 🐣 Building and Installation
 In the future, WatchDuck will come with an installation script. It will also be available as a prebuilt package. For now, users need to compile it from source and install the binaries manually.
