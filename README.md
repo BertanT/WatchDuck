@@ -1,4 +1,4 @@
-<img src="/Sources/Resources/DefaultHTMLAssets/wdlogo.svg" alt="[WatchDuck Logo consisting of a white duck holding an old spyglass to its eye." width=70 align="right">
+<img src="/Sources/Resources/DefaultHTMLAssets/wdlogo.svg" alt="[WatchDuck Logo consisting of a white duck holding an old spyglass to its eye." width=70 align="left">
 
 # Welcome to WatchDuck!
 WatchDuck is a lightweight, cross-platform web service monitor written entirely in Swift. 
