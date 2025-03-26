@@ -11,6 +11,11 @@ Unlike many other status monitors, it provides a comprehensive set of features w
 
 WatchDuck is still in an Alpha version, under active development. I welcome any feedback and contributions! Please see the [Contributing](#️-contributing) section for a set of basic guidelines.
 
+## 🚀 Live Demo!
+[Click here to access my WatchDuck status page!](https://status.bertant.dev/)
+
+[Click here to access my WatchDuck JSON API!](https://status.bertant.dev/api/)
+
 ## 🐣 Building and Installation
 In the future, WatchDuck will come with an installation script. It will also be available as a prebuilt package. For now, users need to compile it from source and install the binaries manually.
 
@@ -55,15 +60,15 @@ WatchDuck is currently being developed and tested mainly using Swift 6.0.3 on ma
     sudo cp .build/release/watchduck /usr/local/bin/
     ```
 
-5) If you are on macOS, you will also need to copy your bundle!
+5) Copy your bundle resources! 
 
     **If you built for debug:**
     ```
-    sudo cp .build/debug/*.bundle /usr/local/bin/
+    sudo cp .build/debug/WatchDuck_watchduck.* /usr/local/bin/
     ```
     **If you built for release:**
     ```
-    sudo cp .build/release/*.bundle /usr/local/bin/
+    sudo cp .build/release/WatchDuck_watchduck.* /usr/local/bin/
     ```
 
 You can now return to your home directory by executing `cd`.
