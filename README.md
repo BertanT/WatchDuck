@@ -112,6 +112,9 @@ I welcome all contributions that help make WatchDuck better! If you are making a
 ### Bug Fixes
 Whether you are providing a fix for a known bug or one you just discovered, you should always incorporate the [Issues](https://github.com/BertanT/WatchDuck/issues) page. If there is already an Issue created for the bug you are working on, please link your pull request to that issue. If such issue does not exist yet, please create a new one first. [Here is a helpful resource from GitHub on how to link pull requests to issues.](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
 
+### Updating the Changelog
+To help make tracking the evolution of WatchDuck for both its users and developers, it is very important that there is a well maintained changelog. In that light, we ask that every pull request also update the `CHANGELOG.md` with a well formulated description of what you have added. While doing so, please fully adhere to the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) formatting guidelines.
+
 ### How to Credit Yourself
 WatchDuck is licensed under the GNU Affero Public License Version 3 (AGPL v3). In order to credit your work properly according to the license conventions, please make sure to:
 
