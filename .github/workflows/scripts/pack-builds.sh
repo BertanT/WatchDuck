@@ -30,6 +30,4 @@ set -e
 mkdir .build/tarballs
 
 # Package macOS universal binary
-cd .build/macos-universal/release
-tar -czf ../../../.build/tarballs/$NEW_TAG.tar.gz watchduck *.bundle
-cd -
+tar -czf .build/tarballs/$NEW_TAG.tar.gz -C .build/macos-universal/release watchduck -C .build/release/*.bundle
