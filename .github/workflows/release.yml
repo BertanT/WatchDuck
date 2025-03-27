@@ -47,7 +47,7 @@ jobs:
       - name: Set up Swift 6.0.3
         uses: swift-actions/setup-swift@v2
         with:
-          swift-version: "6.0.0"
+          swift-version: "6.0.3"
       - name: Build release binaries for all supported platforms.
         run: .github/workflows/scripts/build-release.sh
 
