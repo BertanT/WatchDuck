@@ -31,5 +31,5 @@ mkdir .build/tarballs
 
 # Package macOS universal binary
 cd .build/macos-universal/release
-tar -czf ../../../.build/tarballs/$NEW_TAG.tar.gz .
+tar -czf ../../../.build/tarballs/watchduck-$NEW_TAG-macos-universal.tar.gz .
 cd -
