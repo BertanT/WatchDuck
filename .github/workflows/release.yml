@@ -1,0 +1,71 @@
+#################################################################################################################################
+# release.yml
+# Created on 03/27/2025
+#
+# Copyright (C) 2025 Mehmet Bertan Tarakcioglu
+#
+# This file is part of WatchDuck.
+#
+# WatchDuck is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+# as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# WatchDuck is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License along with WatchDuck.
+# If not, see <https://www.gnu.org/licenses/>.
+#################################################################################################################################
+
+# Part of the CI/CD pipeline for WatchDuck.
+# This workflow is used to create a new release of WatchDuck with a new version tag input.
+
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "New release tag to create (e.g. 0.4.2)"
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: macos-latest
+    env:
+      NEW_TAG: ${{ github.event.inputs.version }}
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+  
+      - name: Build WatchDuck release binaries for all supported platforms.
+        run: .github/workflows/scripts/build-release.sh
+
+      - name: Package all binaries into seperate tarballs.
+        run: .github/workflows/scripts/pack-builds.sh
+
+      - name: Update changelog for release and push changes
+        run: .github/workflows/scripts/update-changelog.sh
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+
+      - name: Create and push tag
+        run: |
+          git tag ${{ env.NEW_TAG }}
+          git push origin ${{ env.NEW_TAG }}
+
+      - name: Extract release notes from the changelog
+        run: |
+          awk '/## \[Unreleased\]/{flag=1;next} /## \[/&&flag{flag=0} flag' CHANGELOG.md | sed '/^\[.*\]: /d' > RELEASE_NOTES.md
+
+      - name: Publish the new release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.NEW_TAG }}
+          body_path: RELEASE_NOTES.md
+          files: .build/tarballs/*
