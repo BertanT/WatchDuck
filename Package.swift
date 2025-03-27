@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.0.3
 /*
  Package.swift
  Created on 7/4/24.
