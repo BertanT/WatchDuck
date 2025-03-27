@@ -3,6 +3,7 @@
 # Welcome to WatchDuck!
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FBertanT%2FWatchDuck%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/BertanT/WatchDuck)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FBertanT%2FWatchDuck%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/BertanT/WatchDuck)
+[![Release](https://github.com/BertanT/WatchDuck/actions/workflows/release.yml/badge.svg)](https://github.com/BertanT/WatchDuck/actions/workflows/release.yml)
 
 WatchDuck is a lightweight, cross-platform web service monitor written entirely in Swift. 
 Host your very own auto-updating static status API and with a beautifully designed, customizable status page! 
