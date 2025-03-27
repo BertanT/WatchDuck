@@ -44,10 +44,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Set up Swift 6.0.3
+      - name: Set up Swift 6.0.0
         uses: swift-actions/setup-swift@v2
         with:
-          swift-version: "6.0.3"
+          swift-version: "6.0.0"
       - name: Build release binaries for all supported platforms.
         run: .github/workflows/scripts/build-release.sh
 
