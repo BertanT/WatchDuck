@@ -33,6 +33,6 @@ swift build --configuration release --arch arm64
 swift build --configuration release --arch x86_64
 
 # Create macOS universal binary
-mkdir .build/macos-universal/release
+mkdir -p .build/macos-universal/release
 lipo -create .build/arm64-apple-macosx/release/watchduck .build/x86_64-apple-macosx/release/watchduck\
     -output .build/macos-universal/release/watchduck
