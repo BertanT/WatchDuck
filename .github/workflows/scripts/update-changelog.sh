@@ -48,13 +48,13 @@ else
 fi
 
 # Replace 'Unreleased' with the new tag and add a date
-sed -i "s/## \[Unreleased\]/## [$NEW_TAG] - $(date +'%Y-%m-%d')/g" CHANGELOG.md
+sed -i '' "s/## \[Unreleased\]/## [$NEW_TAG] - $(date +'%Y-%m-%d')/g" CHANGELOG.md
           
 # Add a new 'Unreleased' section
-sed -i "0,/## \[/s//## [Unreleased]\n\n## [/" CHANGELOG.md
+sed -i '' "0,/## \[/s//## [Unreleased]\n\n## [/" CHANGELOG.md
 
 # Replace the 'Unreleased' link to compare with the new tag
-sed -i "s|\[unreleased\]: .*|[unreleased]: https://github.com/BertanT/WatchDuck/compare/$NEW_TAG...HEAD|" CHANGELOG.md
+sed -i '' "s|\[unreleased\]: .*|[unreleased]: https://github.com/BertanT/WatchDuck/compare/$NEW_TAG...HEAD|" CHANGELOG.md
 
 # Only add the tag link if this isn't the first tag
 if [ "$should_add_tag_link" = true ]; then
