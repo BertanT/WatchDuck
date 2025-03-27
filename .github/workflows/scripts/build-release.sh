@@ -36,3 +36,4 @@ swift build --configuration release --arch x86_64
 mkdir -p .build/macos-universal/release
 lipo -create .build/arm64-apple-macosx/release/watchduck .build/x86_64-apple-macosx/release/watchduck\
     -output .build/macos-universal/release/watchduck
+cp .build/arm64-apple-macosx/release/*.bundle .build/macos-universal/release
