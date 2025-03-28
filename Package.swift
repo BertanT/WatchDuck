@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.0.3
 /*
  Package.swift
  Created on 7/4/24.
@@ -27,7 +27,7 @@ let package = Package(
     platforms: [.macOS(.v12)],
     dependencies: [
             .package(url: "https://github.com/apple/swift-argument-parser.git", revision: "1.5.0"),
-            .package(url: "https://github.com/jpsim/Yams.git", revision: "5.1.3"),
+            .package(url: "https://github.com/jpsim/Yams.git", revision: "5.3.1"),
             .package(url: "https://github.com/JohnSundell/Plot.git", revision: "0.14.0"),
             .package(url: "https://github.com/JohnSundell/ShellOut.git", revision: "2.3.0"),
             .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", revision: "0.58.2"),

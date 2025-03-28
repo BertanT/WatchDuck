@@ -36,12 +36,15 @@ jobs:
   release:
     runs-on: macos-latest
     env:
+      EXEC_NAME: "watchduck"
+      REPO_NAME: ${{ github.event.repository.name }}
       NEW_TAG: ${{ github.event.inputs.version }}
     steps:
       - name: Cloning repository.
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Setting up Swift 6.0.3
         uses: swift-actions/setup-swift@main
         with:
@@ -65,7 +68,7 @@ jobs:
         run: |
           git tag ${{ env.NEW_TAG }}
           git push origin ${{ env.NEW_TAG }}
-      
+
       - name: Publish the new release
         uses: softprops/action-gh-release@v2
         with:

@@ -26,6 +26,10 @@
 # Exit bash script on error
 set -e
 
+# Prepare to cross-compile for Linux
+swift sdk install https://download.swift.org/swift-6.0.3-release/static-sdk/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE_static-linux-0.0.1.artifactbundle.tar.gz --checksum 67f765e0030e661a7450f7e4877cfe008db4f57f177d5a08a6e26fd661cdd0bd
+swift build --configuration release --swift-sdk aarch64-swift-linux-musl
+
 # Build for macOS arm64
 swift build --configuration release --arch arm64
 
@@ -36,6 +40,8 @@ swift build --configuration release --arch x86_64
 mkdir -p .build/macos-universal/release
 lipo -create .build/arm64-apple-macosx/release/$EXEC_NAME .build/x86_64-apple-macosx/release/$EXEC_NAME\
     -output .build/macos-universal/release/$EXEC_NAME
+
+# Copy the bundle into the universal build folder
 cp -r .build/arm64-apple-macosx/release/*.bundle .build/macos-universal/release
 
 # Install the static Swift SDK for Linux Cross-Compilation
