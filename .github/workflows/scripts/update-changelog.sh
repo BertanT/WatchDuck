@@ -56,10 +56,3 @@ sed -i '' "s|\[unreleased\]: .*|[unreleased]: https://github.com/$REPO/compare/$
 
 # Only add a comparison link if this isn't the first tag
 echo -e "\n$released_tag" >> CHANGELOG.md
-
-# Commit and push the updated changelog
-git config user.name "github-actions[bot]"
-git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-git add CHANGELOG.md 
-git commit -m "Update changelog for release $NEW_TAG"
-git push origin HEAD:$TARGET_BRANCH
