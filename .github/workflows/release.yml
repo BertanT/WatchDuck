@@ -62,12 +62,10 @@ jobs:
           TARGET_BRANCH: ${{ github.ref_name }}
         
       - name: Preparing relese notes.
-        run: prepare-release-notes.sh
+        run: .github/workflows/scripts/prepare-release-notes.sh
 
-      - name: Create and push tag
-        run: |
-          git tag ${{ env.NEW_TAG }}
-          git push origin ${{ env.NEW_TAG }}
+      - name: Pussh the latest changes and the new tag to the repository.
+        run: .github/workflows/scripts/push-release.sh
 
       - name: Publish the new release
         uses: softprops/action-gh-release@v2
