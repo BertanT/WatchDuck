@@ -19,7 +19,7 @@
 # Part of the CI/CD pipeline for WatchDuck.
 # This workflow is used to create a new release of WatchDuck with a new version tag input.
 
-name: Release
+name: Release (Swift 6.0.3)
 
 on:
   workflow_dispatch:
