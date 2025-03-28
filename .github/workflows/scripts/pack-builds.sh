@@ -47,6 +47,6 @@ cd -
 # Loop trough every file in the tarballs directory and create a SHA 256 sum for each file
 cd .build/tarballs
 for file in *; do
-    sha256sum $file > $file.sha256
+    shasum -a 256 $file > $file.sha256
 done
 cd -
