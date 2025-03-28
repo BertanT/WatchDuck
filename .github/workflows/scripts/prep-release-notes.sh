@@ -1,6 +1,6 @@
 #!/bin/bash
 #################################################################################################################################
-# pack-builds.sh
+# prep-release-notes.sh
 # Created on 03/27/2025
 #
 # Copyright (C) 2025 Mehmet Bertan Tarakcioglu
@@ -20,33 +20,15 @@
 # This script is meant to run on a GitHub macOS Action Runner as part of the Release Workflow!
 # It assumes to be part of the workflow and will not fail if it is being run by itself.
 
-# This script takes all the binaries compiled by the build-release.sh script and packages them into tarballs,
-# ready for release and distribution!
+# This script prepares relese notes by extracting them from the changelog and obtaining tarball checksums.
 
-# Exit bash script on error
-set -e
+# Extract relese notes from the changelog and put them into RELEASE_NOTES.md
+awk "/## \[$NEW_TAG\]/{flag=1;next} /## \[/&&flag{flag=0} flag" CHANGELOG.md | sed '/^\[.*\]: /d' > RELEASE_NOTES.md
 
-# Create a directory to store the tarballs
-mkdir .build/tarballs
-
-# Package macOS universal binary
-cd .build/macos-universal/release
-tar -czf ../../../.build/tarballs/$NEW_TAG.tar.gz watchduck *.bundle
-cd -
-
-# Package Linux ARM64 Binary
-cd .build/aarch64-swift-linux-musl/release
-tar -czf ../../../.build/tarballs/$EXEC_NAME-$NEW_TAG-linux-aarch64.tar.gz watchduck *.resources
-cd -
-
-# Package Linux x86_64 Binary
-cd .build/x86_64-swift-linux-musl/release
-tar -czf ../../../.build/tarballs/$EXEC_NAME-$NEW_TAG-linux-x86_64.tar.gz watchduck *.resources
-cd -
-
-# Loop trough every file in the tarballs directory and create a SHA 256 sum for each file
-cd .build/tarballs
-for file in *; do
-    sha256 $file > $file.sha256
+# Extract tarball checksums and append them into RELEASE_NOTES.md
+echo -e "\n## SHA256 Checksums" >> RELEASE_NOTES.md
+for file in .build/tarballs/*.sha256; do
+    filename=$(basename "${file%.sha256}")
+    checksum=$(cat "$file")
+    echo "**$filename**: $checksum" >> RELEASE_NOTES.md
 done
-cd -

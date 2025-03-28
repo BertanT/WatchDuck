@@ -38,31 +38,34 @@ jobs:
     env:
       NEW_TAG: ${{ github.event.inputs.version }}
     steps:
-      - name: Clone Repository
+      - name: Cloning repository.
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Setting up Swift 6.0.3
+        uses: swift-actions/setup-swift@main
+        with:
+          swift-version: "6.0.3"
   
-      - name: Build WatchDuck release binaries for all supported platforms.
+      - name: Building release binaries for all supported platforms.
         run: .github/workflows/scripts/build-release.sh
 
-      - name: Package all binaries into seperate tarballs.
+      - name: Packaging all binaries into seperate tarballs.
         run: .github/workflows/scripts/pack-builds.sh
 
-      - name: Update changelog for release and push changes
+      - name: Updating the changelog for the new release and pushing changes.
         run: .github/workflows/scripts/update-changelog.sh
         env:
           TARGET_BRANCH: ${{ github.ref_name }}
+        
+      - name: Preparing relese notes.
+        run: prepare-release-notes.sh
 
       - name: Create and push tag
         run: |
           git tag ${{ env.NEW_TAG }}
           git push origin ${{ env.NEW_TAG }}
-
-      - name: Extract release notes from the changelog
-        run: |
-          awk '/## \[Unreleased\]/{flag=1;next} /## \[/&&flag{flag=0} flag' CHANGELOG.md | sed '/^\[.*\]: /d' > RELEASE_NOTES.md
-
+      
       - name: Publish the new release
         uses: softprops/action-gh-release@v2
         with:
