@@ -58,14 +58,14 @@ jobs:
 
       - name: Updating the changelog for the new release and pushing changes.
         run: .github/workflows/scripts/update-changelog.sh
-        env:
-          TARGET_BRANCH: ${{ github.ref_name }}
         
       - name: Preparing relese notes.
         run: .github/workflows/scripts/prepare-release-notes.sh
 
-      - name: Pussh the latest changes and the new tag to the repository.
+      - name: Push the latest changes and the new tag to the repository.
         run: .github/workflows/scripts/push-release.sh
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
 
       - name: Publish the new release
         uses: softprops/action-gh-release@v2
