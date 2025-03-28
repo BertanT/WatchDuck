@@ -22,6 +22,9 @@
 
 # This script prepares relese notes by extracting them from the changelog and obtaining tarball checksums.
 
+# Exit bash script on error
+set -e
+
 # Extract relese notes from the changelog and put them into RELEASE_NOTES.md
 awk "/## \[$NEW_TAG\]/{flag=1;next} /## \[/&&flag{flag=0} flag" CHANGELOG.md | sed '/^\[.*\]: /d' > RELEASE_NOTES.md
 

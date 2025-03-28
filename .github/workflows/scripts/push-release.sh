@@ -23,6 +23,9 @@
 # Just before creating a new release, this script will push the changes to the changelog to the repo.
 # It wil then create the new tag and also push it.
 
+# Exit bash script on error
+set -e
+
 # Commit and push the updated changelog
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
