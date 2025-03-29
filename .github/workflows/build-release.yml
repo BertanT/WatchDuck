@@ -2,9 +2,9 @@
 # release.yml
 # Created on 03/27/2025
 #
-# Copyright (C) 2025 Mehmet Bertan Tarakcioglu
+# Copyright (C) 2025 Mehmet Bertan Tarakcioglu, Under the MIT License
 #
-# This file is part of WatchDuck.
+# This file was originally created as part of the WatchDuck project.
 #
 # WatchDuck is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License
 # as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -19,80 +19,22 @@
 # Part of the CI/CD pipeline for WatchDuck.
 # This workflow is used to create a new release of WatchDuck with a new version tag input.
 
-name: Build Release
+name: Release WatchDuck
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: "New release tag to create (e.g. 0.4.2)"
+        type: string
         required: true
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+        description: "New release tag to create (e.g. 0.4.2)"
 
 jobs:
-  release:
-    runs-on: macos-latest
-    env:
-      EXEC_NAME: "watchduck"
-      REPO_URL: ${{ github.server_url }}/${{ github.repository }}
-      NEW_TAG: ${{ github.event.inputs.version }}
-    steps:
-      - name: Validating repository variables.
-        run: |
-          # Check if the swift setup version is included in the static sdk url.
-          if [[ "${{ vars.STATIC_LINUX_SDK_URL }}" != *"${{ vars.SETUP_SWIFT_TOOLCHAIN_VERSION }}"* ]]; then
-            echo "Your macOS toolchain and Static Linux SDK's Swift versions seem to be different! Please check your repository variables!"
-            exit 1
-          fi
-
-      - name: Cloning repository.
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setting up Swift Toolchain Version ${{ vars.SETUP_SWIFT_TOOLCHAIN_VERSION }}.
-        uses: swift-actions/setup-swift@main
-        with:
-          swift-version: "${{ vars.SETUP_SWIFT_TOOLCHAIN_VERSION }}"
-
-      - name: Installing the static Swift SDK for Linux.
-        run: swift sdk install ${{ vars.STATIC_LINUX_SDK_URL }} --checksum ${{ vars.STATIC_LINUX_SDK_CHECKSUM }}
-  
-      - name: Building release binary for macOS ARM64.
-        run: swift build --configuration release --arch arm64
-
-      - name: Building release binary for macOS x86_64.
-        run: swift build --configuration release --arch x86_64
-      
-      - name: Combining macOS builds into a single universal binary.
-        run:  ./scripts/macos-universal-binary.sh
-
-      - name: Building release binary for Linux ARM64.
-        run: swift build --configuration release --swift-sdk x86_64-swift-linux-musl
-
-      - name: Building release binary for Linux x86_64.
-        run: swift build --configuration release --swift-sdk aarch64-swift-linux-musl
-
-      - name: Packaging all binaries into seperate tarballs.
-        run: .github/workflows/scripts/pack-builds.sh
-
-      - name: Updating the changelog for the new release and pushing changes.
-        run: .github/workflows/scripts/update-changelog.sh
-        
-      - name: Preparing relese notes.
-        run: .github/workflows/scripts/prepare-release-notes.sh
-
-      - name: Pushing the latest changes and the new tag to the repository.
-        run: .github/workflows/scripts/push-release.sh
-        env:
-          TARGET_BRANCH: ${{ github.ref_name }}
-
-      - name: Publishing the new release.
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ env.NEW_TAG }}
-          body_path: RELEASE_NOTES.md
-          files: .build/tarballs/*
+  call-release:
+    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/release.yml@main
+    with:
+      version: ${{ inputs.version }}
+      exec_name: ${{ vars.EXEC_NAME}}
+      swift_toolchain_version: ${{ vars.SWIFT_TOOLCHAIN_VERSION}}
+      linux_sdk_url: ${{ vars.LINUX_SDK_URL }}
+      linux_sdk_checksum: ${{ vars.LINUX_SDK_CHECKSUM }}
