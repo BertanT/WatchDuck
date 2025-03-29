@@ -34,14 +34,14 @@ if git tag -l | grep -q .; then
     PREV_TAG=$(git describe --abbrev=0 --tags HEAD^)
     
     # Create a URL to link to the new tag title in the changelog
-    compare_url="https://github.com/$REPO/compare/$PREV_TAG...$NEW_TAG"
+    compare_url="$REPO_URL/compare/$PREV_TAG...$NEW_TAG"
     
     # Create the new markdown tag title with the correct comparison link
     released_tag="[$NEW_TAG]: $compare_url"
 
 else
     # If this is the first tag, link to the release URL instead
-    release_url="https://github.com/REPO/tag/$NEW_TAG"
+    release_url="$REPO_URL/tag/$NEW_TAG"
     released_tag="[$NEW_TAG]: $release_url"
 fi
 
@@ -52,7 +52,7 @@ sed -i '' "s/## \[Unreleased\]/## [$NEW_TAG] - $(date +'%Y-%m-%d')/g" CHANGELOG.
 sed -i '' "0,/## \[/s//## [Unreleased]\n\n## [/" CHANGELOG.md
 
 # Replace the 'Unreleased' link to compare with the new tag
-sed -i '' "s|\[unreleased\]: .*|[unreleased]: https://github.com/$REPO/compare/$NEW_TAG...HEAD|I" CHANGELOG.md
+sed -i '' "s|\[unreleased\]: .*|[unreleased]: $REPO_URL/compare/$NEW_TAG...HEAD|I" CHANGELOG.md
 
 # Only add a comparison link if this isn't the first tag
 echo -e "\n$released_tag" >> CHANGELOG.md

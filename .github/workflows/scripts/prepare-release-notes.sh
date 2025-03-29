@@ -26,12 +26,13 @@
 set -e
 
 # Extract relese notes from the changelog and put them into RELEASE_NOTES.md
-awk "/## \[$NEW_TAG\]/{flag=1;next} /## \[/&&flag{flag=0} flag" CHANGELOG.md | sed '/^\[.*\]: /d' > RELEASE_NOTES.md
+echo -e "## Release Notes" > RELEASE_NOTES.md
+awk "/## \[$NEW_TAG\]/{flag=1;next} /## \[/&&flag{flag=0} flag" CHANGELOG.md | sed '/^\[.*\]: /d' >> RELEASE_NOTES.md
 
 # Extract tarball checksums and append them into RELEASE_NOTES.md
 echo -e "\n## SHA256 Checksums" >> RELEASE_NOTES.md
 for file in .build/tarballs/*.sha256; do
     filename=$(basename "${file%.sha256}")
-    checksum=$(cat "$file")
+    checksum=$(awk '{print $1}' "$file")
     echo "**$filename**: $checksum" >> RELEASE_NOTES.md
 done

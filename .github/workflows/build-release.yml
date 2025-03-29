@@ -19,7 +19,7 @@
 # Part of the CI/CD pipeline for WatchDuck.
 # This workflow is used to create a new release of WatchDuck with a new version tag input.
 
-name: Build Release (Swift 6.0.3)
+name: Build Release
 
 on:
   workflow_dispatch:
@@ -37,21 +37,44 @@ jobs:
     runs-on: macos-latest
     env:
       EXEC_NAME: "watchduck"
-      REPO: ${{ github.repository }}
+      REPO_URL: ${{ github.server_url }}/${{ github.repository }}
       NEW_TAG: ${{ github.event.inputs.version }}
     steps:
+      - name: Validating repository variables.
+        run: |
+          # Check if the swift setup version is included in the static sdk url.
+          if [[ "${{ vars.STATIC_LINUX_SDK_URL }}" != *"${{ vars.SETUP_SWIFT_TOOLCHAIN_VERSION }}"* ]]; then
+            echo "Your macOS toolchain and Static Linux SDK's Swift versions seem to be different! Please check your repository variables!"
+            exit 1
+          fi
+
       - name: Cloning repository.
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setting up Swift 6.0.3
+      - name: Setting up Swift Toolchain Version ${{ vars.SETUP_SWIFT_TOOLCHAIN_VERSION }}.
         uses: swift-actions/setup-swift@main
         with:
-          swift-version: "6.0.3"
+          swift-version: "${{ vars.SETUP_SWIFT_TOOLCHAIN_VERSION }}"
+
+      - name: Installing the static Swift SDK for Linux.
+        run: swift sdk install ${{ vars.STATIC_LINUX_SDK_URL }} --checksum ${{ vars.STATIC_LINUX_SDK_CHECKSUM }}
   
-      - name: Building release binaries for all supported platforms.
-        run: .github/workflows/scripts/build-release.sh
+      - name: Building release binary for macOS ARM64.
+        run: swift build --configuration release --arch arm64
+
+      - name: Building release binary for macOS x86_64.
+        run: swift build --configuration release --arch x86_64
+      
+      - name: Combining macOS builds into a single universal binary.
+        run:  ./scripts/macos-universal-binary.sh
+
+      - name: Building release binary for Linux ARM64.
+        run: swift build --configuration release --swift-sdk x86_64-swift-linux-musl
+
+      - name: Building release binary for Linux x86_64.
+        run: swift build --configuration release --swift-sdk aarch64-swift-linux-musl
 
       - name: Packaging all binaries into seperate tarballs.
         run: .github/workflows/scripts/pack-builds.sh
