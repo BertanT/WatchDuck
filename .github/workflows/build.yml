@@ -27,7 +27,7 @@ on:
         - main
 
 jobs:
-  call-release:
+  call-build:
     uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/build.yml@main
     with:
       swift_toolchain_version: ${{ vars.SWIFT_TOOLCHAIN_VERSION}}
