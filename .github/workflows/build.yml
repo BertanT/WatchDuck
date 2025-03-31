@@ -28,7 +28,7 @@ on:
 
 jobs:
   call-build:
-    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/build.yml@main
+    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/build.yml@ffaab88857833f618d773a4980c23b9f4e24851a
     with:
       swift_toolchain_version: ${{ vars.SWIFT_TOOLCHAIN_VERSION}}
       linux_sdk_url: ${{ vars.LINUX_SDK_URL }}

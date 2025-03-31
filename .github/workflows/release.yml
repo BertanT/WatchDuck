@@ -31,7 +31,7 @@ on:
 
 jobs:
   call-release:
-    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/release.yml@main
+    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/release.yml@ffaab88857833f618d773a4980c23b9f4e24851a
     with:
       version: ${{ inputs.version }}
       exec_name: ${{ vars.EXEC_NAME}}
