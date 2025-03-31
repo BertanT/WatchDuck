@@ -19,7 +19,7 @@
 # Part of the CI/CD pipeline for WatchDuck.
 # This workflow is used to create build WatchDuck on every supported platform on pushes to main.
 
-name: Release
+name: Build Main
 
 on:
     push:
