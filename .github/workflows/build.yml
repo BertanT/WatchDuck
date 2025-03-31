@@ -1,0 +1,35 @@
+#################################################################################################################################
+# release.yml
+# Created on 03/27/2025
+#
+# Copyright (C) 2025 Mehmet Bertan Tarakcioglu, Under the MIT License
+#
+# This file was originally created as part of the WatchDuck project.
+#
+# WatchDuck is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+# as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# WatchDuck is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License along with WatchDuck.
+# If not, see <https://www.gnu.org/licenses/>.
+#################################################################################################################################
+
+# Part of the CI/CD pipeline for WatchDuck.
+# This workflow is used to create build WatchDuck on every supported platform on pushes to main.
+
+name: Release
+
+on:
+    push:
+      branches:
+        - main
+
+jobs:
+  call-release:
+    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/build.yml@main
+    with:
+      swift_toolchain_version: ${{ vars.SWIFT_TOOLCHAIN_VERSION}}
+      linux_sdk_url: ${{ vars.LINUX_SDK_URL }}
+      linux_sdk_checksum: ${{ vars.LINUX_SDK_CHECKSUM }}
