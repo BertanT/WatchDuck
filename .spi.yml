@@ -1,0 +1,11 @@
+version: 1
+builder:
+  configs:
+    - documentation_targets: [watchduck]
+      platform: macOS
+      swift_version: 6.0.3
+      targets: [watchduck]
+    - platform: macOS
+      swift_version: 6.0.3
+    - platform: Linu
+      swift_version: 6.0.3

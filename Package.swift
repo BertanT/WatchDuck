@@ -31,6 +31,7 @@ let package = Package(
             .package(url: "https://github.com/JohnSundell/Plot.git", revision: "0.14.0"),
             .package(url: "https://github.com/JohnSundell/ShellOut.git", revision: "2.3.0"),
             .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", revision: "0.58.2"),
+            .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.1.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -47,6 +48,7 @@ let package = Package(
                 .copy("Resources")
             ],
             plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
+            
         )
     ]
 )
