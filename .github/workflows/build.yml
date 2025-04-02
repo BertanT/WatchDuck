@@ -25,7 +25,9 @@ on:
     push:
       branches:
         - main
-
+    pull_request:
+        paths:
+        - "**/.swift"
 jobs:
   call-build:
     uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/build.yml@ffaab88857833f618d773a4980c23b9f4e24851a
