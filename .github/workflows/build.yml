@@ -27,7 +27,7 @@ on:
         - main
     pull_request:
         paths:
-        - "**/.swift"
+        - "**/*.swift"
     merge_group:
 jobs:
   call-build:
