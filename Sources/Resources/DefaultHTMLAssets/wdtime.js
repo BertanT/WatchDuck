@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function formatAllTimestamps() {
     document.querySelectorAll('[data-timestamp]').forEach(formatTimestampElement);
+
+    // Make sure the time zone notice is correct for users who don't have JS enabled
+    document.querySelectorAll('.tz-notice-nojs').forEach(e => e.style.display = 'none');
+    document.querySelectorAll('.tz-notice-js').forEach(e => e.style.display = 'block');
 }
 
 function formatTimestampElement(element) {
@@ -42,7 +46,7 @@ function formatTimestampElement(element) {
     } else if (formatType === 'lastupdated') {
         element.textContent = 'Last updated: ' + formatDateTime(date, true);
     } else if (formatType === 'ongoing') {
-        element.textContent = 'Down since ' + formatDateTime(date, true);
+        element.textContent = 'Down since ' + formatDateTime(date);
     }
 }
 
@@ -107,6 +111,16 @@ function getTimezoneString(date) {
  * @returns {string} Formatted date range.
  */
 function formatDateRange(startDate, endDate) {
+    if (startDate.getFullYear() === endDate.getFullYear() &&
+        startDate.getMonth() === endDate.getMonth() &&
+        startDate.getDate() === endDate.getDate() &&
+        startDate.getHours() === endDate.getHours() &&
+        startDate.getMinutes() === endDate.getMinutes()) {
+        
+        const formattedStart = formatDateTime(startDate, false, true);
+        return `${formattedStart} - Resolved under a minute :)`;
+    }
+
     const formattedStart = formatDateTime(startDate, false, true);
     const formattedEnd = formatDateTime(endDate, false, true);
     return `${formattedStart} - ${formattedEnd}`;

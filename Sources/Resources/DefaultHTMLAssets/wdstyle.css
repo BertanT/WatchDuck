@@ -298,6 +298,10 @@ html, body {
     opacity: 100%;
 }
 
+.tz-notice-js {
+    display: none;
+}
+
 .help-text {
     color: var(--secondary-text-color);
     font-size: 0.8rem;
