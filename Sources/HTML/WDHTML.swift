@@ -35,6 +35,7 @@ struct WDHTML {
 
                 // Set up external sources
                 .stylesheet("./styles/wdstyle.css"),
+                .script(.src("./scripts/wdtime.js")),
 
                 .favicon("./images/wdfavicon.png"),
 

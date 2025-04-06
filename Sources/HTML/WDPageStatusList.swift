@@ -56,9 +56,17 @@ struct WDPageStatusList: Component {
                                 List {
                                     for outage in status.outages {
                                         if let end = outage.end {
-                                            ListItem("\(outage.start.formatted()) - \(end.formatted())")
+                                            ListItem {
+                                                Text("\(outage.start.formatted()) - \(end.formatted())")
+                                            }
+                                            .attribute(named: "data-timestamp", value: "\(Int(outage.start.timeIntervalSince1970))")
+                                            .attribute(named: "data-end-timestamp", value: "\(Int(end.timeIntervalSince1970))")
                                         } else {
-                                            ListItem("Down since \(outage.start.formatted())")
+                                            ListItem {
+                                                Text("Down since \(outage.start.formatted())")
+                                            }
+                                            .attribute(named: "data-timestamp", value: "\(Int(outage.start.timeIntervalSince1970))")
+                                            .attribute(named: "data-format-type", value: "ongoing")
                                         }
                                     }
                                 }

@@ -24,8 +24,12 @@ struct WDPageListSubtext: Component {
 
     var body: Component {
         ComponentGroup {
-            H6("Last updated: \(lastUpdate.formatted(date: .abbreviated, time: .complete))")
-            H6("All logs are shown in \(TimeZone.current.abbreviation() ?? "the server's local time zone").")
+            H6 {
+                Text("Last updated: \(lastUpdate.formatted(date: .abbreviated, time: .complete))")
+            }
+            .attribute(named: "data-timestamp", value: "\(Int(lastUpdate.timeIntervalSince1970))")
+            .attribute(named: "data-format-type", value: "lastupdated")
+            H6("All logs are shown in your local timezone.")
         }
         .class("help-text")
     }
