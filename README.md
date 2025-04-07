@@ -132,7 +132,7 @@ Additionally, please add your name to the [Code Contributors](#code-contributors
 Created with love and passion by Mehmet Bertan Tarakçıoğlu.
 
 ### Code Contributors
-Nobody else here! Please see the [Contributing](#contributing) section to help make WatchDuck better :)
+* Bedir Ekim ([un1970ix](https://github.com/un1970ix))
 
 ### Logo Design
 The cute little duck watching over all of your web services, drawn by Anday Gün Derya ❤️ ([LinkedIn](https://www.linkedin.com/in/anday-gün-derya-35062a2b2/)).
