@@ -31,8 +31,9 @@ on:
     merge_group:
 jobs:
   call-build:
-    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/build.yml@ffaab88857833f618d773a4980c23b9f4e24851a
+    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/build.yml@56adc1ba94a7a669f556cc5e8f5021485ce4b45f
     with:
       swift_toolchain_version: ${{ vars.SWIFT_TOOLCHAIN_VERSION}}
       linux_sdk_url: ${{ vars.LINUX_SDK_URL }}
       linux_sdk_checksum: ${{ vars.LINUX_SDK_CHECKSUM }}
+      run-swiftlint: ${{ vars.BUILD_RUN_SWIFTLINT == 'true' }}
