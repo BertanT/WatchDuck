@@ -30,7 +30,7 @@ enum PackageResources {
     static let abstract = "Lightweight web service monitor and static status page generator."
 
     /// The current Semantic Version of WatchDuck
-    static let version = "v0.1.0"
+    static let version = "v0.1.4"
 
     /// The current JSON API revision. This needs to match for a previous log file to be initialized.
     static let apiRevision = 0
