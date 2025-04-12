@@ -111,8 +111,8 @@ checks:
       #     failing, in seconds. (Min: 0<, Max: 120)
       # timeout: 30
 
-      # The number of times WathcDuck will retry to load a service before marking it as offline.
-      # retries: 3
+      # The number of times WatchDuck will retry to load a service before marking it as offline.
+      # retries: 5
 
       # How long WatchDuck will wait before retrying a failed check request, in seconds.
       # (Min: 0<, Max: 300)

@@ -54,7 +54,7 @@ struct HTTPResponseCodeCheck: AnyWDCheck {
     let headers: [String: String]?
     let body: String?
     private(set) var timeout: TimeInterval = 30
-    private(set) var retries = 3
+    private(set) var retries = 5
     private(set) var retryInterval: TimeInterval = 30
     private(set) var waitForConnectivity = true
     private(set) var responseRanges = [200...299]
