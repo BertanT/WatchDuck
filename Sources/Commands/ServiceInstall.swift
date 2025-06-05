@@ -1,5 +1,5 @@
 /*
- SystemInstall.swift
+ ServiceInstall.swift
  Created on 1/31/25.
  
  Copyright (C) 2025 Mehmet Bertan Tarakcioglu
@@ -31,20 +31,12 @@ struct ServiceInstall: ParsableCommand {
 
     mutating func run() throws {
         try OSUtils.kernelCheck()
-
-        guard (try? shellOut(to: "whoami")) == "root" else {
-            print("Error: This command requires root privileges! Please try again using sudo.".color(.red))
-            throw ExitCode(EXIT_FAILURE)
-        }
-
-        guard (try? shellOut(to: "which watchduck")) == PackageResources.wdBinaryPath else {
-            print("Error: The WatchDuck executable in your PATH must be located at \(PackageResources.wdBinaryPath) to proceed with the installation!".color(.red))
-            throw ExitCode(EXIT_FAILURE)
-        }
+        try OSUtils.rootCheck()
+        try OSUtils.pathCheck()
 
         print(PackageResources.asciiDuck)
-        print(PackageResources.wdServiceInstallerBanner)
-        print(PackageResources.serviceInstallerExtraInstructions)
+        print(PackageResources.serviceInstallBanner)
+        print(PackageResources.serviceInstallExtraInstructions)
 
         if !acceptDefault {
             print("Would you like to proceed with the installation? [Y/n]")
@@ -57,11 +49,7 @@ struct ServiceInstall: ParsableCommand {
 
         #if os(Linux)
         print("> Checking if systemd is installed".color(.magenta))
-
-        guard let shellResponse = try? shellOut(to: "which systemd"), shellResponse.contains("systemd") else {
-            print("Error: Could not find systemd on your computer. Please install it and try again!".color(.red))
-            throw ExitCode(EXIT_FAILURE)
-        }
+        try OSUtils.systemdCheck()
         #endif
 
         print("> Trying to clean any previous installations...".color(.magenta))

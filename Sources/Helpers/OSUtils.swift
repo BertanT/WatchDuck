@@ -22,8 +22,34 @@ import ShellOut
 
 enum OSUtils {
     static func kernelCheck() throws {
-        guard (try? shellOut(to: "uname")) == PackageResources.kernelName else {
+        guard (try shellOut(to: "uname")) == PackageResources.kernelName else {
             print("Error: Kernel-binary mismatch! Please stop using WatchDuck and re-install the correct binary for your operating system!".color(.red))
+            throw ExitCode(EXIT_FAILURE)
+        }
+    }
+
+    static func rootCheck() throws {
+        guard (try shellOut(to: "whoami")) == "root" else {
+            print("Error: This command requires root privileges! Please try again using sudo.".color(.red))
+            throw ExitCode(EXIT_FAILURE)
+        }
+    }
+
+    static func pathCheck() throws {
+        guard (try shellOut(to: "which \(PackageResources.CLIName)").lowercased()) == PackageResources.wdBinaryPath else {
+            print("Error: The WatchDuck executable in your PATH must be located at \(PackageResources.wdBinaryPath) to proceed!".color(.red))
+            throw ExitCode(EXIT_FAILURE)
+        }
+
+        guard Bundle.main.executablePath?.lowercased() == PackageResources.wdBinaryPath else {
+            print("Error: This instance of WatchDuck does not seem to originate from the executable set in your path. Unable to proceed.".color(.red))
+            throw ExitCode(EXIT_FAILURE)
+        }
+    }
+
+    static func systemdCheck() throws {
+        guard let shellResponse = try? shellOut(to: "which systemd"), shellResponse.contains("systemd") else {
+            print("Error: Could not find systemd on your computer. Please install it and try again!".color(.red))
             throw ExitCode(EXIT_FAILURE)
         }
     }

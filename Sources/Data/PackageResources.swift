@@ -80,7 +80,7 @@ enum PackageResources {
     static let serviceName = "com.bertant.watchduck"
     static let serviceFileSource = Bundle.module.staticURL(forResource: "com.bertant.watchduck", withExtension: "plist", subdirectory: "Configuration")
     static let serviceFileDest   = URL(fileURLWithPath: "/Library/LaunchDaemons/com.bertant.watchduck.plist")
-    static let serviceInstallerExtraInstructions: String =
+    static let serviceInstallExtraInstructions: String =
                 """
                 > You can toggle the WatchDuck background process at any time by turning it off in the GUI at System Settings -> General -> Login Items & Extensions.
 
@@ -94,15 +94,16 @@ enum PackageResources {
     static let serviceName = "watchduck.service"
     static let serviceFileSource = Bundle.module.staticURL(forResource: "watchduck.service", withExtension: nil, subdirectory: "Configuration")
     static let serviceFileDest   = URL(fileURLWithPath: "/etc/systemd/system/watchduck.service")
-    static let serviceInstallerExtraInstructions: String =
+    static let serviceInstallExtraInstructions: String =
                 """
                 > Make sure you have systemd installed and running!
                 > You can disable the WatchDuck background process any time by executing "sudo systemctl disable --now watchduck.service".
                   Re-enable it by running "sudo systemctl enable --now watchduck.service".
+                
                 """
     #endif
 
-    static let wdServiceInstallerBanner =
+    static let serviceInstallBanner =
                 """
                 \("Welcome to \(name) System Service Installer!".color(.cyan, bold: true)) \(version.color(.magenta, bold: true))
                 \("This will install WatchDuck as a system service to run it in the background as a system service at all times.".color(.yellow))
@@ -110,6 +111,13 @@ enum PackageResources {
                 \("!!! Please check the following before proceeding !!!".color(.red, bold: true))
                 > WatchDuck will always use the configuration at \(defaultConfigURL.path) in system service mode.
                     A sample configuration will be created there if it does not exist. To learn more about how to edit the configuration, see \(docsURL).
+                """
+    static let serviceUninstallBanner =
+                """
+                \("Welcome to \(name) System Service Uninstaller!".color(.cyan, bold: true)) \(version.color(.magenta, bold: true))
+                \("This command will reverse the actions done by the service-install command to remove the system service installation from your computer.".color(.yellow))
 
+                \("!!! This command will STOP updating the WatchDuck web service automatically. Please confirm that this is your intention before proceeding !!!".color(.red, bold: true))
+                
                 """
 }
