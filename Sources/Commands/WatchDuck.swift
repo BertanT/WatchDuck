@@ -26,7 +26,7 @@ struct WatchDuck: AsyncParsableCommand {
         commandName: PackageResources.CLIName,
         abstract: PackageResources.abstract,
         version: PackageResources.version,
-        subcommands: [Run.self, ServiceInstall.self],
+        subcommands: [Run.self, ServiceInstall.self, ServiceUninstall.self],
         defaultSubcommand: Run.self
     )
 }
