@@ -26,7 +26,7 @@
 
 # Allows WatchDuck to delete and overwrite the JSON log file in its entirity if it contains
 #     invalid data or was encoded with an incompatible API version.
-# overwriteCourruptLogs: true
+# overwriteCorruptLogs: true
 
 # The maximum number of outage incidents the logs store, including ongoing. When the limit is
 #     reached, adding a new incident deletes the oldest entry.
@@ -102,9 +102,15 @@ checks:
       name: "Swift Website"
 
       url: "https://www.swift.org"
+      
+      # The HTTP method to be used by the check
       method: "GET"
+      
+      # The HTTP headers to be sent during the check. Empty by default.
       headers:
         User-Agent: Mozilla/5.0
+        
+      # The HTTP body of the check
       body: null
 
       # The maximum amount of time WatchDuck will wait for a service to respond before
