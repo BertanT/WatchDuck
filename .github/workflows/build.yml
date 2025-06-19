@@ -29,11 +29,18 @@ on:
         paths:
         - "**/*.swift"
     merge_group:
+    workflow_dispatch:
+        inputs:
+          run_swiftlint:
+            type: boolean
+            required: true
+            default: true
+            description: "Run SwiftLint before building. Overridden if repo variable is false."
 jobs:
   call-build:
-    uses: BertanT/SwiftPM-Cross-Comp-CI/.github/workflows/build.yml@56adc1ba94a7a669f556cc5e8f5021485ce4b45f
+    uses: BertanT/Swift-Executable-CI/.github/workflows/build.yml@5576c29badd4468c399b07cac5629b102d8a25ff
     with:
-      swift_toolchain_version: ${{ vars.SWIFT_TOOLCHAIN_VERSION}}
+      swift_toolchain_version: ${{ vars.SWIFT_TOOLCHAIN_VERSION }}
       linux_sdk_url: ${{ vars.LINUX_SDK_URL }}
       linux_sdk_checksum: ${{ vars.LINUX_SDK_CHECKSUM }}
-      run-swiftlint: ${{ vars.BUILD_RUN_SWIFTLINT == 'true' }}
+      run_swiftlint: ${{ vars.BUILD_RUN_SWIFTLINT != 'false' && (github.event_name != 'workflow_dispatch' || inputs.run_swiftlint) }}
