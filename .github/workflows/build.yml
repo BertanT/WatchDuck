@@ -1,23 +1,13 @@
 #################################################################################################################################
-# release.yml
+# build-template.yml
 # Created on 03/27/2025
 #
 # Copyright (C) 2025 Mehmet Bertan Tarakcioglu, Under the MIT License
 #
-# This file was originally created as part of the WatchDuck project.
-#
-# WatchDuck is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License
-# as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-#
-# WatchDuck is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License along with WatchDuck.
-# If not, see <https://www.gnu.org/licenses/>.
+# This file was originally created as part of the WatchDuck project CI Pipeline.
 #################################################################################################################################
 
-# Part of the CI/CD pipeline for WatchDuck.
-# This workflow is used to create build WatchDuck on every supported platform on pushes to main.
+# Recommended usage of the reusable build workflow provided by BertantT/Swift-Executable-CI.
 
 name: Build main
 
@@ -38,7 +28,7 @@ on:
             description: "Run SwiftLint before building. Overridden if repo variable is false."
 jobs:
   call-build:
-    uses: BertanT/Swift-Executable-CI/.github/workflows/build.yml@5576c29badd4468c399b07cac5629b102d8a25ff
+    uses: BertanT/Swift-Executable-CI/.github/workflows/build.yml@ebe8abd9a650c65541bf5893509594c047f74584
     with:
       swift_toolchain_version: ${{ vars.SWIFT_TOOLCHAIN_VERSION }}
       linux_sdk_url: ${{ vars.LINUX_SDK_URL }}
